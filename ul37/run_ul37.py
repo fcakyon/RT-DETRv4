@@ -100,6 +100,8 @@ def save_predictions(family: str, config: Path, checkpoint: Path, output: Path) 
     import torch
     import torch.distributed as dist
 
+    torch.multiprocessing.set_sharing_strategy("file_system")  # batch 64 of target tensors exhausts a 1024 fd limit
+
     if not dist.is_initialized():  # model builders query the rank
         dist.init_process_group("gloo", init_method=f"file://{output.parent}/.pg", rank=0, world_size=1)
     YAMLConfig = importlib.import_module(f"{FAMILIES[family]['package']}.core").YAMLConfig
