@@ -10,6 +10,8 @@ saved provenance, this repo's commit included, matches the current run.
 The released configs distill from a frozen DINOv3 ViT-B/16 teacher, and the runner keeps that loss. The teacher loads
 through `torch.hub` from a `facebookresearch/dinov3` checkout at `~/dev/dinov3` and the weights file
 `rtv4/dinov3_vitb16_pretrain_lvd1689m.pth` under `--weights`.
+`convert_dinov3.py` builds that file from the Hugging Face `facebook/dinov3-vitb16-pretrain-lvd1689m` weights and checks
+its patch tokens against the transformers model.
 
 ## Setup
 
