@@ -51,6 +51,8 @@ def predict(
     import torch
     from engine.core import YAMLConfig
 
+    torch.multiprocessing.set_sharing_strategy("file_system")  # batch 32 of target tensors exhausts a 1024 fd limit
+
     dataset = {"img_folder": str(images), "ann_file": str(ann_file)}
     cfg = YAMLConfig(
         str(config), remap_mscoco_category=True, val_dataloader={"dataset": dataset, "total_batch_size": batch}
